@@ -1,9 +1,10 @@
 name: Create forward PR on merge
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,9 +12,6 @@ permissions:
 
 jobs:
   create-forward-pr:
-    if: >
-      github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'develop'
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +23,7 @@ jobs:
             const repo = context.repo.repo;
             const head = "develop";
             const base = "staging";
+            const pushedBy = context.actor;
 
             const existing = await github.rest.pulls.list({
               owner,
@@ -45,5 +44,5 @@ jobs:
               head,
               base,
               title: `Promote ${head} to ${base}`,
-              body: "This PR was created automatically after a merge into develop."
+              body: `This PR was created automatically after a push to ${head} by ${pushedBy}.`
             });
