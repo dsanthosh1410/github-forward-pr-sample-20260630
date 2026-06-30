@@ -1,3 +1,4 @@
 This is a simple text file for testing the sample repository setup.
 This line was added from feature/test-forward-pr to test the auto-forward PR workflow.
 This line was added from feature/small-change-20260630 for a fresh PR into develop.
+This line was added from feature/sample-pr-2-20260630 for another sample PR.
